@@ -32,5 +32,19 @@ public class MedicalRecordTracker implements HealthTracker {
         System.out.println(HealthAnalyzer.generateWarning(latestRecord));
     }
 
+    @Override
+    public void generateReport() {
+        if (latestRecord == null) {
+            System.out.println("❌ No medical records found.");
+            return;
+        }
+
+        System.out.println("\n🩺 Last Medical Record:");
+        System.out.println("Pulse Rate: " + latestRecord.getPulseRate());
+        System.out.println("Heart Rate: " + latestRecord.getHeartRate());
+        System.out.println("Blood Pressure: " + latestRecord.getBloodPressure());
+        System.out.println("Glucose Level: " + latestRecord.getGlucoseLevel());
+        System.out.println(HealthAnalyzer.generateWarning(latestRecord));
+    }
 
 }
