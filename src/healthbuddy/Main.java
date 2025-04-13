@@ -37,6 +37,15 @@ public class Main {
                     sleepReport.generateReport();
                     break;
 
+                case "3":
+                    HealthTracker exercise = HealthTrackerFactory.getTracker("exercise");
+                    exercise.log();
+                    break;
+                case "33":
+                    HealthTracker exerciseReport = HealthTrackerFactory.getTracker("exercise");
+                    exerciseReport.generateReport();
+                    break;
+
                 case "5":
                     HealthTracker medical = HealthTrackerFactory.getTracker("medical");
                     medical.log();
@@ -62,6 +71,9 @@ public class Main {
 
         System.out.println("2. Log Sleep");
         System.out.println("22. View Sleep Report");
+
+        System.out.println("3. Log Exercise");
+        System.out.println("33. View Exercise Report");
 
         System.out.println("5. Log Medical Record (Vitals)");
         System.out.println("55. View Last Medical Record Report");
