@@ -28,6 +28,15 @@ public class Main {
                     dietReport.generateReport();
                     break;
 
+                case "2":
+                    HealthTracker sleep = HealthTrackerFactory.getTracker("sleep");
+                    sleep.log();
+                    break;
+                case "22":
+                    HealthTracker sleepReport = HealthTrackerFactory.getTracker("sleep");
+                    sleepReport.generateReport();
+                    break;
+
                 case "5":
                     HealthTracker medical = HealthTrackerFactory.getTracker("medical");
                     medical.log();
@@ -50,6 +59,10 @@ public class Main {
         System.out.println("\n📋 Menu:");
         System.out.println("1. Log Diet & Nutrition");
         System.out.println("11. View Diet Report");
+
+        System.out.println("2. Log Sleep");
+        System.out.println("22. View Sleep Report");
+
         System.out.println("5. Log Medical Record (Vitals)");
         System.out.println("55. View Last Medical Record Report");
         System.out.println("0. Exit");
