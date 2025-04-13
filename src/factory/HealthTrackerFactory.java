@@ -9,6 +9,7 @@ public class HealthTrackerFactory {
         return switch (type.toLowerCase()) {
             case "medical" -> new MedicalRecordTracker();
             case "diet" -> new DietTracker();
+            case "sleep" -> new SleepTracker();
 
             default -> throw new IllegalArgumentException("Unknown tracker type: " + type);
         };
