@@ -1,10 +1,14 @@
 package healthbuddy;
 
 import factory.HealthTrackerFactory;
+import features.BMICalculator;
+import features.CalorieCalculator;
 import features.WeeklyReportGenerator;
 
 import interfaces.Summarizable;
+import models.UserProfile;
 import trackers.*;
+import utils.UserManager;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,6 +23,7 @@ public class Main {
         ExerciseTracker exerciseTracker = (ExerciseTracker) HealthTrackerFactory.getTracker("exercise");
         MentalHealthTracker mentalHealthTracker = (MentalHealthTracker) HealthTrackerFactory.getTracker("mental");
         MedicalRecordTracker medicalRecordTracker = (MedicalRecordTracker) HealthTrackerFactory.getTracker("medical");
+        UserProfile profile = UserManager.getProfile();
 
         System.out.println("╔════════════════════════════════╗");
         System.out.println("║      Welcome to HealthBuddy    ║");
@@ -76,6 +81,14 @@ public class Main {
                     reportGen.generateFullReport();
                     break;
 
+                case "7":
+                    CalorieCalculator.showCalorieNeeds(profile);
+                    break;
+
+                case "8":
+                    BMICalculator.showBMI(profile);
+                    break;
+
                 case "0":
                     System.out.println("👋 Stay healthy. Exiting HealthBuddy!");
                     running = false;
@@ -104,6 +117,11 @@ public class Main {
         System.out.println("55. 📄 View Last Medical Record Report");
 
         System.out.println("6.  📊 Generate Weekly Health Report");
+
+        System.out.println("7. View Calorie Needs (BMR & TDEE)");
+
+        System.out.println("8. Check BMI");
+
         System.out.println("0.  ❌ Exit");
 
         System.out.print("👉 Enter your choice: ");
