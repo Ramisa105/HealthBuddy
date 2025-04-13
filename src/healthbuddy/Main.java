@@ -20,10 +20,19 @@ public class Main {
 
             switch (choice) {
                 case "1":
+                    HealthTracker diet = HealthTrackerFactory.getTracker("diet");
+                    diet.log();
+                    break;
+                case "11":
+                    HealthTracker dietReport = HealthTrackerFactory.getTracker("diet");
+                    dietReport.generateReport();
+                    break;
+
+                case "5":
                     HealthTracker medical = HealthTrackerFactory.getTracker("medical");
                     medical.log();
                     break;
-                case "2":
+                case "55":
                     HealthTracker med = HealthTrackerFactory.getTracker("medical");
                     med.generateReport();
                     break;
@@ -39,8 +48,10 @@ public class Main {
 
     private static void printMenu() {
         System.out.println("\n📋 Menu:");
-        System.out.println("1. Log Medical Record (Vitals)");
-        System.out.println("2. View Last Medical Record Report");
+        System.out.println("1. Log Diet & Nutrition");
+        System.out.println("11. View Diet Report");
+        System.out.println("5. Log Medical Record (Vitals)");
+        System.out.println("55. View Last Medical Record Report");
         System.out.println("0. Exit");
         System.out.print("👉 Enter your choice: ");
     }
