@@ -2,9 +2,9 @@ package healthbuddy;
 
 import factory.HealthTrackerFactory;
 import features.WeeklyReportGenerator;
-import interfaces.*;
-import trackers.*;
 
+import interfaces.Summarizable;
+import trackers.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,6 +13,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
+
+        DietTracker dietTracker = (DietTracker) HealthTrackerFactory.getTracker("diet");
+        SleepTracker sleepTracker = (SleepTracker) HealthTrackerFactory.getTracker("sleep");
+        ExerciseTracker exerciseTracker = (ExerciseTracker) HealthTrackerFactory.getTracker("exercise");
+        MentalHealthTracker mentalHealthTracker = (MentalHealthTracker) HealthTrackerFactory.getTracker("mental");
+        MedicalRecordTracker medicalRecordTracker = (MedicalRecordTracker) HealthTrackerFactory.getTracker("medical");
 
         System.out.println("╔════════════════════════════════╗");
         System.out.println("║      Welcome to HealthBuddy    ║");
@@ -24,57 +30,47 @@ public class Main {
 
             switch (choice) {
                 case "1":
-                    HealthTracker diet = HealthTrackerFactory.getTracker("diet");
-                    diet.log();
+                    dietTracker.log();
                     break;
                 case "11":
-                    HealthTracker dietReport = HealthTrackerFactory.getTracker("diet");
-                    dietReport.generateReport();
+                    dietTracker.generateReport();
                     break;
 
                 case "2":
-                    HealthTracker sleep = HealthTrackerFactory.getTracker("sleep");
-                    sleep.log();
+                    sleepTracker.log();
                     break;
                 case "22":
-                    HealthTracker sleepReport = HealthTrackerFactory.getTracker("sleep");
-                    sleepReport.generateReport();
+                    sleepTracker.generateReport();
                     break;
 
                 case "3":
-                    HealthTracker exercise = HealthTrackerFactory.getTracker("exercise");
-                    exercise.log();
+                    exerciseTracker.log();
                     break;
                 case "33":
-                    HealthTracker exerciseReport = HealthTrackerFactory.getTracker("exercise");
-                    exerciseReport.generateReport();
+                    exerciseTracker.generateReport();
                     break;
 
                 case "4":
-                    HealthTracker mental = HealthTrackerFactory.getTracker("mental");
-                    mental.log();
+                    mentalHealthTracker.log();
                     break;
                 case "44":
-                    HealthTracker mentalReport = HealthTrackerFactory.getTracker("mental");
-                    mentalReport.generateReport();
+                    mentalHealthTracker.generateReport();
                     break;
 
                 case "5":
-                    HealthTracker medical = HealthTrackerFactory.getTracker("medical");
-                    medical.log();
+                    medicalRecordTracker.log();
                     break;
                 case "55":
-                    HealthTracker med = HealthTrackerFactory.getTracker("medical");
-                    med.generateReport();
+                    medicalRecordTracker.generateReport();
                     break;
 
                 case "6":
                     List<Summarizable> summaries = List.of(
-                            new DietTracker(),
-                            new SleepTracker(),
-                            new ExerciseTracker(),
-                            new MentalHealthTracker(),
-                            new MedicalRecordTracker()
+                            dietTracker,
+                            sleepTracker,
+                            exerciseTracker,
+                            mentalHealthTracker,
+                            medicalRecordTracker
                     );
                     WeeklyReportGenerator reportGen = new WeeklyReportGenerator(summaries);
                     reportGen.generateFullReport();
@@ -85,31 +81,30 @@ public class Main {
                     running = false;
                     break;
                 default:
-                    System.out.println("❌ Invalid choice.");
+                    System.out.println("❌ Invalid choice. Please try again.");
             }
         }
     }
 
     private static void printMenu() {
         System.out.println("\n📋 Menu:");
-        System.out.println("1. Log Diet & Nutrition");
-        System.out.println("11. View Diet Report");
+        System.out.println("1.  🍎 Log Diet & Nutrition");
+        System.out.println("11. 📄 View Diet Report");
 
-        System.out.println("2. Log Sleep");
-        System.out.println("22. View Sleep Report");
+        System.out.println("2.  😴 Log Sleep");
+        System.out.println("22. 📄 View Sleep Report");
 
-        System.out.println("3. Log Exercise");
-        System.out.println("33. View Exercise Report");
+        System.out.println("3.  🏋️ Log Exercise");
+        System.out.println("33. 📄 View Exercise Report");
 
-        System.out.println("4. Log Mental Health Check-In");
-        System.out.println("44. View Mental Health Report");
+        System.out.println("4.  🧠 Log Mental Health Check-In");
+        System.out.println("44. 📄 View Mental Health Report");
 
-        System.out.println("5. Log Medical Record (Vitals)");
-        System.out.println("55. View Last Medical Record Report");
+        System.out.println("5.  🩺 Log Medical Record (Vitals)");
+        System.out.println("55. 📄 View Last Medical Record Report");
 
-        System.out.println("6. Generate Weekly Health Report");
-
-        System.out.println("0. Exit");
+        System.out.println("6.  📊 Generate Weekly Health Report");
+        System.out.println("0.  ❌ Exit");
 
         System.out.print("👉 Enter your choice: ");
     }
