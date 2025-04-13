@@ -46,6 +46,15 @@ public class Main {
                     exerciseReport.generateReport();
                     break;
 
+                case "4":
+                    HealthTracker mental = HealthTrackerFactory.getTracker("mental");
+                    mental.log();
+                    break;
+                case "44":
+                    HealthTracker mentalReport = HealthTrackerFactory.getTracker("mental");
+                    mentalReport.generateReport();
+                    break;
+
                 case "5":
                     HealthTracker medical = HealthTrackerFactory.getTracker("medical");
                     medical.log();
@@ -54,6 +63,7 @@ public class Main {
                     HealthTracker med = HealthTrackerFactory.getTracker("medical");
                     med.generateReport();
                     break;
+
                 case "0":
                     System.out.println("👋 Stay healthy. Exiting HealthBuddy!");
                     running = false;
@@ -75,9 +85,14 @@ public class Main {
         System.out.println("3. Log Exercise");
         System.out.println("33. View Exercise Report");
 
+        System.out.println("4. Log Mental Health Check-In");
+        System.out.println("44. View Mental Health Report");
+
         System.out.println("5. Log Medical Record (Vitals)");
         System.out.println("55. View Last Medical Record Report");
+
         System.out.println("0. Exit");
+        
         System.out.print("👉 Enter your choice: ");
     }
 }
