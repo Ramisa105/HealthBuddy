@@ -1,12 +1,13 @@
 package trackers;
 
 import interfaces.HealthTracker;
+import interfaces.Summarizable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class SleepTracker implements HealthTracker {
+public class SleepTracker implements HealthTracker, Summarizable {
     private final List<Double> hoursSlept = new ArrayList<>();
     private final List<String> sleepQuality = new ArrayList<>();
 
@@ -49,5 +50,20 @@ public class SleepTracker implements HealthTracker {
             System.out.println("✅ Great! You're sleeping well.");
         }
     }
+
+    @Override
+    public String getSummary() {
+        if (hoursSlept.isEmpty()) {
+            return "😴 Sleep: No data.";
+        }
+
+        double total = 0;
+        for (double h : hoursSlept) total += h;
+        double avg = total / hoursSlept.size();
+
+        return "😴 Sleep: Avg " + String.format("%.1f", avg) + " hrs (" +
+                (avg < 6 ? "⚠️ Less Sleep" : "✅ Good Sleep") + ")";
+    }
+
 }
 
