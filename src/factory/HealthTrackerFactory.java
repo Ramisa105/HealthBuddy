@@ -10,7 +10,7 @@ public class HealthTrackerFactory {
             case "diet" -> new DietTracker();
             case "sleep" -> new SleepTracker();
             case "exercise" -> new ExerciseTracker();
-
+            case "mental" -> new MentalHealthTracker();
             case "medical" -> new MedicalRecordTracker();
             default -> throw new IllegalArgumentException("Unknown tracker type: " + type);
         };
