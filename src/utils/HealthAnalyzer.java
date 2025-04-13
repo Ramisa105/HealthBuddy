@@ -16,4 +16,12 @@ public class HealthAnalyzer {
         }
         return "✅ Your vitals seem normal. Keep tracking regularly.";
     }
+
+    public static boolean isAbnormal(MedicalRecord record) {
+        return record.getPulseRate() < 60 || record.getPulseRate() > 100 ||
+                record.getHeartRate() < 60 || record.getHeartRate() > 100 ||
+                record.getBloodPressure() < 90 || record.getBloodPressure() > 140 ||
+                record.getGlucoseLevel() < 70 || record.getGlucoseLevel() > 140;
+    }
+
 }
