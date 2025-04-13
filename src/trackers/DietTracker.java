@@ -1,12 +1,13 @@
 package trackers;
 
 import interfaces.HealthTracker;
+import interfaces.Summarizable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DietTracker implements HealthTracker {
+public class DietTracker implements HealthTracker, Summarizable {
     private final List<String> meals = new ArrayList<>();
 
     @Override
@@ -41,5 +42,11 @@ public class DietTracker implements HealthTracker {
         } else {
             System.out.println("✅ You're maintaining a consistent meal pattern.");
         }
+    }
+
+    @Override
+    public String getSummary() {
+        return "🍽️ Meals Logged: " + meals.size() +
+                (meals.size() < 3 ? " (⚠️ Low)" : " (✅ Good)");
     }
 }
