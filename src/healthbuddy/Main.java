@@ -1,8 +1,12 @@
 package healthbuddy;
 
 import factory.HealthTrackerFactory;
-import interfaces.HealthTracker;
+import features.WeeklyReportGenerator;
+import interfaces.*;
+import trackers.*;
 
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -64,6 +68,18 @@ public class Main {
                     med.generateReport();
                     break;
 
+                case "6":
+                    List<Summarizable> summaries = List.of(
+                            new DietTracker(),
+                            new SleepTracker(),
+                            new ExerciseTracker(),
+                            new MentalHealthTracker(),
+                            new MedicalRecordTracker()
+                    );
+                    WeeklyReportGenerator reportGen = new WeeklyReportGenerator(summaries);
+                    reportGen.generateFullReport();
+                    break;
+
                 case "0":
                     System.out.println("👋 Stay healthy. Exiting HealthBuddy!");
                     running = false;
@@ -91,8 +107,10 @@ public class Main {
         System.out.println("5. Log Medical Record (Vitals)");
         System.out.println("55. View Last Medical Record Report");
 
+        System.out.println("6. Generate Weekly Health Report");
+
         System.out.println("0. Exit");
-        
+
         System.out.print("👉 Enter your choice: ");
     }
 }
