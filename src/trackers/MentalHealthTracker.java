@@ -1,12 +1,13 @@
 package trackers;
 
 import interfaces.HealthTracker;
+import interfaces.Summarizable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MentalHealthTracker implements HealthTracker {
+public class MentalHealthTracker implements HealthTracker, Summarizable {
     private static class MentalHealthEntry {
         String mood;
         int stressLevel;
@@ -61,5 +62,17 @@ public class MentalHealthTracker implements HealthTracker {
             System.out.println("✅ You seem to be managing stress well.");
         }
     }
+    @Override
+    public String getSummary() {
+        if (entries.isEmpty()) {
+            return "🧠 Mental Health: No data.";
+        }
+
+        MentalHealthEntry last = entries.get(entries.size() - 1);
+        return "🧠 Mood: " + last.mood + ", Stress: " + last.stressLevel +
+                (last.stressLevel >= 8 ? " (⚠️ High Stress)" : " (✅ Stable)");
+    }
+
+
 }
 
