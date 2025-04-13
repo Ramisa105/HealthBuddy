@@ -1,12 +1,13 @@
 package trackers;
 
 import interfaces.HealthTracker;
+import interfaces.Summarizable;
 import models.MedicalRecord;
 import utils.HealthAnalyzer;
 
 import java.util.Scanner;
 
-public class MedicalRecordTracker implements HealthTracker {
+public class MedicalRecordTracker implements HealthTracker, Summarizable {
     private MedicalRecord latestRecord;
 
     @Override
@@ -46,5 +47,20 @@ public class MedicalRecordTracker implements HealthTracker {
         System.out.println("Glucose Level: " + latestRecord.getGlucoseLevel());
         System.out.println(HealthAnalyzer.generateWarning(latestRecord));
     }
+
+    @Override
+    public String getSummary() {
+        if (latestRecord == null) {
+            return "🩺 Vitals: No data.";
+        }
+
+        return "🩺 Last Vitals — Pulse: " + latestRecord.getPulseRate() +
+                ", HR: " + latestRecord.getHeartRate() +
+                ", BP: " + latestRecord.getBloodPressure() +
+                ", Glucose: " + latestRecord.getGlucoseLevel() +
+                (HealthAnalyzer.isAbnormal(latestRecord) ? " (⚠️ Abnormal)" : " (✅ Normal)");
+    }
+
+
 
 }
