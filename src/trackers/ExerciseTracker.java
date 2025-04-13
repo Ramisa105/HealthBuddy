@@ -1,15 +1,16 @@
 package trackers;
 
 import interfaces.HealthTracker;
+import interfaces.Summarizable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ExerciseTracker implements HealthTracker {
+public class ExerciseTracker implements HealthTracker, Summarizable {
     private static class ExerciseEntry {
         String type;
-        int duration; 
+        int duration;
 
         ExerciseEntry(String type, int duration) {
             this.type = type;
@@ -58,4 +59,16 @@ public class ExerciseTracker implements HealthTracker {
             System.out.println("✅ Great job staying active!");
         }
     }
+
+    @Override
+    public String getSummary() {
+        if (exercises.isEmpty()) {
+            return "🏃 Exercise: No data.";
+        }
+
+        int totalTime = exercises.stream().mapToInt(e -> e.duration).sum();
+        return "🏃 Exercise: " + totalTime + " mins (" +
+                (totalTime < 90 ? "⚠️ Low Activity" : "✅ Active") + ")";
+    }
+
 }
