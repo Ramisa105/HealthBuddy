@@ -26,6 +26,9 @@ public class MedicalVitalsModule implements HealthModule {
         System.out.print("Enter body temperature (°F): ");
         double temperature = sc.nextDouble();
 
+        System.out.print("Enter fasting glucose level (mg/dL): ");
+        int glucose = sc.nextInt();
+
         StringBuilder report = new StringBuilder();
         report.append("\n--- Vitals Report ---\n");
 
@@ -40,6 +43,9 @@ public class MedicalVitalsModule implements HealthModule {
 
         report.append("Body Temperature: ").append(temperature).append("°F - ")
                 .append(checkTemperature(temperature)).append("\n");
+
+        report.append("Glucose Level: ").append(glucose).append(" mg/dL - ")
+                .append(checkGlucose(glucose)).append("\n");
 
         System.out.println(report);
         FileUtil.writeToFile("medical_vitals.txt", report.toString());
@@ -69,5 +75,12 @@ public class MedicalVitalsModule implements HealthModule {
         if (temp > 99.0 && temp <= 100.4) return "⚠️ Mild Fever - Rest and stay hydrated.";
         if (temp > 100.4) return "🚨 High Fever - Possible infection. Consult a doctor.";
         return "⚠️ Low - Possible hypothermia. Warm up and seek help if needed.";
+    }
+
+    private String checkGlucose(int glucose) {
+        if (glucose < 70) return "⚠️ Low (Hypoglycemia) - Eat something sugary and monitor.";
+        if (glucose <= 99) return "✅ Normal (Fasting)";
+        if (glucose <= 125) return "⚠️ Prediabetic - Improve diet and exercise.";
+        return "🚨 High (Diabetic range) - Consult your doctor.";
     }
 }
