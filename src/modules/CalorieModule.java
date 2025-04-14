@@ -1,7 +1,6 @@
 package modules;
 
 import interfaces.HealthModule;
-import utils.FileUtil;
 
 import java.util.Scanner;
 
@@ -46,7 +45,7 @@ public class CalorieModule implements HealthModule {
                 activityFactor = 1.2;
         }
 
-        // Calculate BMR
+
         double bmr;
         if (gender.equals("male")) {
             bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
@@ -76,7 +75,6 @@ public class CalorieModule implements HealthModule {
         chart.append(String.format("Fast gain (2lb)         | %.0f        | 139%%\n", tdee * 1.39));
         chart.append("------------------------------------------------------------");
 
-        System.out.println(chart);
-        FileUtil.writeToFile("calorie.txt", "BMR: " + bmr + "\nTDEE: " + tdee + "\n" + chart);
+
     }
 }

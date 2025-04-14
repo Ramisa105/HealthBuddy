@@ -85,7 +85,6 @@ public class HydrationModule implements HealthModule {
         );
 
         System.out.println("\n" + result);
-        FileUtil.writeToFile("hydration.txt", result);
 
         System.out.print("\nWould you like hydration reminders? (yes/no): ");
         String remindChoice = sc.nextLine().toLowerCase();

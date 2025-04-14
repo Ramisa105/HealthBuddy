@@ -1,7 +1,6 @@
 package modules;
 
 import interfaces.HealthModule;
-import utils.FileUtil;
 
 import java.util.Scanner;
 
@@ -44,11 +43,9 @@ public class MedicalVitalsModule implements HealthModule {
         report.append("Body Temperature: ").append(temperature).append("°F - ")
                 .append(checkTemperature(temperature)).append("\n");
 
-        report.append("Glucose Level: ").append(glucose).append(" mg/dL - ")
-                .append(checkGlucose(glucose)).append("\n");
 
         System.out.println(report);
-        FileUtil.writeToFile("medical_vitals.txt", report.toString());
+
     }
 
     private String checkPulse(int pulse) {
@@ -77,10 +74,4 @@ public class MedicalVitalsModule implements HealthModule {
         return "⚠️ Low - Possible hypothermia. Warm up and seek help if needed.";
     }
 
-    private String checkGlucose(int glucose) {
-        if (glucose < 70) return "⚠️ Low (Hypoglycemia) - Eat something sugary and monitor.";
-        if (glucose <= 99) return "✅ Normal (Fasting)";
-        if (glucose <= 125) return "⚠️ Prediabetic - Improve diet and exercise.";
-        return "🚨 High (Diabetic range) - Consult your doctor.";
-    }
 }

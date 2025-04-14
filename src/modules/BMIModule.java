@@ -1,11 +1,10 @@
 package modules;
 
 import interfaces.HealthModule;
-import interfaces.Summarizable;
-import utils.FileUtil;
+
 import java.util.Scanner;
 
-public class BMIModule implements HealthModule, Summarizable {
+public class BMIModule implements HealthModule{
     private double weight, heightInMeters;
 
     @Override
@@ -26,7 +25,7 @@ public class BMIModule implements HealthModule, Summarizable {
         String result = String.format("BMI: %.2f - %s", bmi, category);
         System.out.println(result);
         displayBMIChart(bmi);
-        FileUtil.writeToFile("bmi.txt", result);
+
     }
 
     private double convertFeetInchesToMeters(int feet, int inches) {
@@ -54,10 +53,7 @@ public class BMIModule implements HealthModule, Summarizable {
             return "Obese Class III";
     }
 
-    @Override
-    public String generateSummary() {
-        return "BMI calculated from weight (kg) and height (ft/in).";
-    }
+
 
     private void displayBMIChart(double bmi) {
         String[] categories = {
@@ -66,14 +62,14 @@ public class BMIModule implements HealthModule, Summarizable {
         };
         double[] bounds = {0, 16, 17, 18.5, 25, 30, 35, 40, 50};
         String[] colors = {
-                "\u001B[35m", // Purple - Severe Thinness
-                "\u001B[31m", // Red - Moderate Thinness
-                "\u001B[91m", // Light Red - Mild Thinness
-                "\u001B[32m", // Green - Normal
-                "\u001B[33m", // Yellow - Overweight
-                "\u001B[93m", // Light Yellow - Obese Class I
-                "\u001B[91m", // Light Red - Obese Class II
-                "\u001B[41m"  // Red Background - Obese Class III
+                "\u001B[35m",
+                "\u001B[31m",
+                "\u001B[91m",
+                "\u001B[32m",
+                "\u001B[33m",
+                "\u001B[93m",
+                "\u001B[91m",
+                "\u001B[41m"
         };
         String RESET = "\u001B[0m";
 
@@ -84,7 +80,7 @@ public class BMIModule implements HealthModule, Summarizable {
         int pointerPosition = (int) ((bmi - bmiMin) / bmiRange * chartWidth);
         pointerPosition = Math.min(pointerPosition, chartWidth - 1);
 
-        // Draw color bar
+
         System.out.println("\n--- BMI CHART ---");
         System.out.print("|");
         for (int i = 0; i < bounds.length - 1; i++) {
@@ -96,13 +92,13 @@ public class BMIModule implements HealthModule, Summarizable {
         }
         System.out.println("|");
 
-        // Draw pointer
+
         System.out.print(" ");
         for (int i = 0; i < pointerPosition; i++) System.out.print(" ");
         System.out.println("^");
         System.out.println("Your BMI: " + String.format("%.1f", bmi));
 
-        // Category labels
+
         System.out.println("\nLegend:");
         for (int i = 0; i < categories.length; i++) {
             System.out.println(colors[i] + categories[i] + RESET + ": " + bounds[i] + " - " + bounds[i + 1]);
