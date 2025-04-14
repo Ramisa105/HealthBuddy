@@ -6,21 +6,32 @@ import utils.FileUtil;
 import java.util.Scanner;
 
 public class BMIModule implements HealthModule, Summarizable {
-    private double weight, height;
+    private double weight, heightInMeters;
 
     @Override
     public void execute(Scanner sc) {
         System.out.print("Enter weight (kg): ");
         weight = sc.nextDouble();
-        System.out.print("Enter height (m): ");
-        height = sc.nextDouble();
 
-        double bmi = weight / (height * height);
+        System.out.print("Enter height - feet: ");
+        int feet = sc.nextInt();
+        System.out.print("Enter height - inches: ");
+        int inches = sc.nextInt();
+
+        heightInMeters = convertFeetInchesToMeters(feet, inches);
+
+        double bmi = weight / (heightInMeters * heightInMeters);
         String category = classifyBMI(bmi);
 
         String result = String.format("BMI: %.2f - %s", bmi, category);
         System.out.println(result);
         FileUtil.writeToFile("bmi.txt", result);
+    }
+
+    private double convertFeetInchesToMeters(int feet, int inches) {
+        int totalInches = feet * 12 + inches;
+        double meters = totalInches * 0.0254;
+        return meters;
     }
 
     private String classifyBMI(double bmi) {
@@ -44,6 +55,6 @@ public class BMIModule implements HealthModule, Summarizable {
 
     @Override
     public String generateSummary() {
-        return "BMI calculated based on height and weight.";
+        return "BMI calculated from weight (kg) and height (ft/in).";
     }
 }
