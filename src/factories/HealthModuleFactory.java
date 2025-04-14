@@ -3,10 +3,7 @@ package factories;
 
 
 import interfaces.HealthModule;
-import modules.BMIModule;
-import modules.CalorieModule;
-import modules.HydrationModule;
-import modules.GoalModule;
+import modules.*;
 
 public class HealthModuleFactory {
     public static HealthModule getModule(int option) {
@@ -14,7 +11,8 @@ public class HealthModuleFactory {
             case 1: return new BMIModule();
             case 2: return new CalorieModule();
             case 3: return new HydrationModule();
-            case 4: return new GoalModule();
+            case 4: return new MedicalVitalsModule();
+            case 5: return new GoalModule();
             default: return null;
         }
     }

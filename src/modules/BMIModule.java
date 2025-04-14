@@ -4,7 +4,7 @@ import interfaces.HealthModule;
 
 import java.util.Scanner;
 
-public class BMIModule implements HealthModule{
+public class BMIModule implements HealthModule {
     private double weight, heightInMeters;
 
     @Override
@@ -12,64 +12,53 @@ public class BMIModule implements HealthModule{
         System.out.print("Enter weight (kg): ");
         weight = sc.nextDouble();
 
-        System.out.print("Enter height - feet: ");
+        System.out.print("Enter your height:\n   Feet: ");
         int feet = sc.nextInt();
-        System.out.print("Enter height - inches: ");
+        System.out.print("   Inches: ");
         int inches = sc.nextInt();
 
         heightInMeters = convertFeetInchesToMeters(feet, inches);
 
         double bmi = weight / (heightInMeters * heightInMeters);
-        String category = classifyBMI(bmi);
+        int categoryIndex = classifyBMIIndex(bmi);
 
-        String result = String.format("BMI: %.2f - %s", bmi, category);
+        String[] categories = {"Underweight", "Normal", "Overweight", "Obese"};
+        String[] categoryColors = {
+                "\u001B[94m",
+                "\u001B[33m",
+                "\u001B[38;5;208m",
+                "\u001B[31m"
+        };
+        String RESET = "\u001B[0m";
+
+        String coloredCategory = categoryColors[categoryIndex] + categories[categoryIndex] + RESET;
+        System.out.println("\n");
+        String result = String.format("BMI: %.2f - %s", bmi, coloredCategory);
         System.out.println(result);
-        displayBMIChart(bmi);
-
+        displayBMIChart(bmi, categoryIndex);
     }
 
     private double convertFeetInchesToMeters(int feet, int inches) {
         int totalInches = feet * 12 + inches;
-        double meters = totalInches * 0.0254;
-        return meters;
+        return totalInches * 0.0254;
     }
 
-    private String classifyBMI(double bmi) {
-        if (bmi < 16)
-            return "Severe Thinness";
-        else if (bmi < 17)
-            return "Moderate Thinness";
-        else if (bmi < 18.5)
-            return "Mild Thinness";
-        else if (bmi < 25)
-            return "Normal";
-        else if (bmi < 30)
-            return "Overweight";
-        else if (bmi < 35)
-            return "Obese Class I";
-        else if (bmi < 40)
-            return "Obese Class II";
-        else
-            return "Obese Class III";
+    private int classifyBMIIndex(double bmi) {
+        if (bmi < 18.5) return 0;
+        else if (bmi < 25) return 1;
+        else if (bmi < 30) return 2;
+        else return 3;
     }
 
+    private void displayBMIChart(double bmi, int categoryIndex) {
+        String[] categories = {"Underweight", "Normal", "Overweight", "Obese"};
+        double[] bounds = {0, 18.5, 25, 30, 50};
 
-
-    private void displayBMIChart(double bmi) {
-        String[] categories = {
-                "Severe Thinness", "Moderate Thinness", "Mild Thinness", "Normal",
-                "Overweight", "Obese Class I", "Obese Class II", "Obese Class III"
-        };
-        double[] bounds = {0, 16, 17, 18.5, 25, 30, 35, 40, 50};
         String[] colors = {
-                "\u001B[35m",
-                "\u001B[31m",
-                "\u001B[91m",
-                "\u001B[32m",
+                "\u001B[94m",
                 "\u001B[33m",
-                "\u001B[93m",
-                "\u001B[91m",
-                "\u001B[41m"
+                "\u001B[38;5;208m",
+                "\u001B[31m"
         };
         String RESET = "\u001B[0m";
 
@@ -80,31 +69,33 @@ public class BMIModule implements HealthModule{
         int pointerPosition = (int) ((bmi - bmiMin) / bmiRange * chartWidth);
         pointerPosition = Math.min(pointerPosition, chartWidth - 1);
 
+        System.out.println("\n                                       BMI CHART                               ");
 
-        System.out.println("\n--- BMI CHART ---");
         System.out.print("|");
         for (int i = 0; i < bounds.length - 1; i++) {
             int start = (int) ((bounds[i] - bmiMin) / bmiRange * chartWidth);
             int end = (int) ((bounds[i + 1] - bmiMin) / bmiRange * chartWidth);
-            String color = colors[i];
-            String bar = color + "█".repeat(Math.max(1, end - start)) + RESET;
+            String bar = colors[i] + "█".repeat(Math.max(1, end - start)) + RESET;
             System.out.print(bar);
         }
         System.out.println("|");
 
 
+
         System.out.print(" ");
         for (int i = 0; i < pointerPosition; i++) System.out.print(" ");
-        System.out.println("^");
-        System.out.println("Your BMI: " + String.format("%.1f", bmi));
+        System.out.println("⬆️");
 
 
-        System.out.println("\nLegend:");
+        System.out.println();
+        System.out.println("╔══════════════════╦═════════════════════════╗");
+        System.out.println("║     Category     ║        BMI Range        ║");
+        System.out.println("╠══════════════════╬═════════════════════════╣");
         for (int i = 0; i < categories.length; i++) {
-            System.out.println(colors[i] + categories[i] + RESET + ": " + bounds[i] + " - " + bounds[i + 1]);
+            String coloredName = colors[i] + String.format("%-16s", categories[i]) + RESET;
+            String range = String.format("%.1f - %.1f", bounds[i], bounds[i + 1]);
+            System.out.printf("║ %-19s ║ %-23s ║\n", coloredName, range);
         }
+        System.out.println("╚══════════════════╩═════════════════════════╝");
     }
-
-
-
 }
