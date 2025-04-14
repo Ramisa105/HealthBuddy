@@ -5,8 +5,8 @@ import models.UserProfile;
 public class BMICalculator {
 
     public static double calculateBMI(UserProfile user) {
-        double weight = user.getWeight();
-        double heightInMeters = user.getHeight() / 100.0;
+        double weight = user.getWeightKg();
+        double heightInMeters = user.getHeightCm() / 100.0;
 
         return weight / (heightInMeters * heightInMeters);
     }

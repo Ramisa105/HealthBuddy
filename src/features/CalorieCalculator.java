@@ -1,12 +1,11 @@
 package features;
-
 import models.UserProfile;
 
 public class CalorieCalculator {
 
     public static double calculateBMR(UserProfile user) {
-        double weight = user.getWeight();
-        double height = user.getHeight();
+        double weight = user.getWeightKg();
+        double height = user.getHeightCm();
         int age = user.getAge();
         String gender = user.getGender().toLowerCase();
 
