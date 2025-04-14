@@ -38,7 +38,7 @@ HealthBuddy is a modular, console-based Java application designed to help users 
 
 📦 Setup Instructions
         -> Clone the Repository
-              git clone https://github.com/your-username/health-tracker-console.git
+              git clone https://github.com/Ramisa105/HealthBuddy.git
         -> Navigate to the Project Directory
               cd health-tracker-console
         -> Compile the Java Files
