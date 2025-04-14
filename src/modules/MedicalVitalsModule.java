@@ -14,9 +14,6 @@ public class MedicalVitalsModule implements HealthModule {
         System.out.print("Enter pulse rate (bpm): ");
         int pulse = sc.nextInt();
 
-        System.out.print("Enter heart rate (bpm): ");
-        int heartRate = sc.nextInt();
-
         System.out.print("Enter blood pressure - systolic (mm Hg): ");
         int systolic = sc.nextInt();
 
@@ -35,9 +32,6 @@ public class MedicalVitalsModule implements HealthModule {
         report.append("Pulse Rate: ").append(pulse).append(" bpm - ")
                 .append(checkPulse(pulse)).append("\n");
 
-        report.append("Heart Rate: ").append(heartRate).append(" bpm - ")
-                .append(checkHeartRate(heartRate)).append("\n");
-
         report.append("Blood Pressure: ").append(systolic).append("/").append(diastolic).append(" mm Hg - ")
                 .append(checkBloodPressure(systolic, diastolic)).append("\n");
 
@@ -53,33 +47,27 @@ public class MedicalVitalsModule implements HealthModule {
 
     private String checkPulse(int pulse) {
         if (pulse >= 60 && pulse <= 100) return "✅ Normal";
-        if (pulse < 60) return "⚠️ Low - Possible Bradycardia";
-        return "🚨 High - Seek medical advice";
-    }
-
-    private String checkHeartRate(int rate) {
-        if (rate >= 60 && rate <= 100) return "✅ Normal";
-        if (rate < 60) return "⚠️ Low - Monitor if symptomatic";
-        return "🚨 High - Seek medical attention";
+        if (pulse < 60) return "⚠️ Low (Bradycardia) - May be normal for athletes, otherwise consult a doctor.";
+        return "🚨 High (Tachycardia) - Possible stress, fever, or heart issue.";
     }
 
     private String checkBloodPressure(int sys, int dia) {
-        if (sys < 90 || dia < 60) return "⚠️ Low - Possible Hypotension";
-        if ((sys >= 90 && sys <= 120) && (dia >= 60 && dia <= 80)) return "✅ Normal";
-        if ((sys > 120 && sys <= 140) || (dia > 80 && dia <= 90)) return "⚠️ Prehypertension - Monitor";
-        return "🚨 High - Possible Hypertension";
+        if (sys < 90 || dia < 60) return "⚠️ Low - May cause dizziness or fainting. Monitor closely.";
+        if (sys <= 120 && dia <= 80) return "✅ Normal";
+        if (sys <= 139 || dia <= 89) return "⚠️ Elevated - Lifestyle changes recommended.";
+        return "🚨 High - Risk of hypertension. Consult a doctor.";
     }
 
     private String checkOxygen(int oxygen) {
-        if (oxygen >= 95 && oxygen <= 100) return "✅ Normal";
-        if (oxygen >= 90 && oxygen < 95) return "⚠️ Low - Consider resting";
-        return "🚨 Critical - Seek immediate help";
+        if (oxygen >= 95) return "✅ Normal";
+        if (oxygen >= 90) return "⚠️ Slightly Low - Take deep breaths, consider rest.";
+        return "🚨 Critical - Seek emergency medical care immediately.";
     }
 
     private String checkTemperature(double temp) {
         if (temp >= 97.0 && temp <= 99.0) return "✅ Normal";
-        if (temp > 99.0 && temp <= 100.4) return "⚠️ Mild Fever - Monitor";
-        if (temp > 100.4) return "🚨 High Fever - Seek medical help";
-        return "⚠️ Low - Possible Hypothermia";
+        if (temp > 99.0 && temp <= 100.4) return "⚠️ Mild Fever - Rest and stay hydrated.";
+        if (temp > 100.4) return "🚨 High Fever - Possible infection. Consult a doctor.";
+        return "⚠️ Low - Possible hypothermia. Warm up and seek help if needed.";
     }
 }
