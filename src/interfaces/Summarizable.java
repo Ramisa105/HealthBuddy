@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface Summarizable {
-    String getSummary();
+    String generateSummary();
 }
