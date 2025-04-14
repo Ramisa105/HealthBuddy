@@ -48,3 +48,33 @@ HealthBuddy is a modular, console-based Java application designed to help users 
 1. Clone the Repository  
    ```bash
    git clone https://github.com/your-username/health-tracker-console.git
+2. Navigate to the Project Directory
+   ```bash
+   cd health-tracker-console
+3. Compile the Java Files
+   ```bash
+   javac Main.java modules/*.java interfaces/*.java utils/*.java factories/*.java
+4. Run the Application
+   ```bash
+   java healthbuddy.Main
+
+---
+
+## 🛠 Requirements  
+- Java 8 or higher  
+- Console or Terminal to run the application  
+- Optional: Text editor to view logs and health reports  
+
+---
+
+## 🔮 Coming Soon  
+- Weekly health reports with AI-based suggestions  
+- Desktop notifications and voice-based hydration alerts  
+- Integration with fitness APIs and smartwatches  
+- GUI version for better accessibility  
+- Export health logs to PDF/Excel for personal or clinical use  
+
+---
+
+## 💙 Built With Passion  
+HealthBuddy was crafted with care by a developer who believes in making health tools accessible, informative, and effective. Every module is built with user-centric design and real-world practicality in mind—because your health deserves attention.
