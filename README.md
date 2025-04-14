@@ -3,6 +3,7 @@
 HealthBuddy is a modular, console-based Java application designed to help users manage and improve their health by calculating BMI, daily calorie and hydration needs, checking vital signs, and setting health-related goals with smart reminders
 
 🚀 Features
+
 ✅ BMI Calculator
         -> Calculates Body Mass Index based on height and weight.
         -> Categorizes into:
