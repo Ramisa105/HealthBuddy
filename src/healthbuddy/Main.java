@@ -1,8 +1,6 @@
 package healthbuddy;
-
 import factories.HealthModuleFactory;
 import interfaces.HealthModule;
-
 import java.util.Scanner;
 
 
@@ -11,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         String GREEN = "\u001B[34m";
         String RESET = "\u001B[0m";
-
         System.out.print("\n");
         String[] title2 = {
                 "                                                       ──────▄▌▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀\u200B▀▀▀▀▀▀",
@@ -21,7 +18,6 @@ public class Main {
                 "                                                       ▀(@)▀▀▀▀▀▀▀(@)(@)▀▀▀▀▀▀▀▀▀▀▀▀▀\u200B▀▀▀▀(@)▀",
 
         };
-
         String[] title3 = {
 
                 "                            ██╗  ██╗ ███████╗  █████╗  ██╗   ████████╗ ██╗  ██╗      ██████╗  ██╗   ██╗  ██████╗  ██████╗  ██╗   ██╗",
@@ -32,9 +28,6 @@ public class Main {
                 "                            ╚═╝  ╚═╝ ╚══════╝ ╚═╝  ╚═╝ ╚══════╝ ╚═╝    ╚═╝  ╚═╝      ╚═════╝   ╚═════╝   ╚═════╝  ╚═════╝     ╚═╝     ",
                 ""
         };
-
-
-
 
         for (String line : title2) {
             System.out.println(line);
@@ -78,7 +71,6 @@ public class Main {
 
             choice = sc.nextInt();
             sc.nextLine();
-
             if (choice >= 1 && choice <= 5) {
                 HealthModule module = HealthModuleFactory.getModule(choice);
                 module.execute(sc);
@@ -89,9 +81,7 @@ public class Main {
 
         }
 
-
     }
-
 
 }
 
