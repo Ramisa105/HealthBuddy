@@ -41,18 +41,15 @@ public class GoalModule implements HealthModule {
             System.out.print("\nChoose an option: ");
             int choice = sc.nextInt();
             sc.nextLine();
-
-            switch (choice) {
-                case 1 -> addGoal(sc);
-                case 2 -> viewGoals();
-                case 3 -> deleteGoal(sc);
-                case 4 -> markGoalAsDone(sc);
-                case 5 -> {
-                    saveGoals();
-                    return;
-                }
-                default -> System.out.println("Invalid option.");
+            if(choice ==1) addGoal(sc);
+            else if(choice ==2) viewGoals();
+            else if(choice ==3) deleteGoal(sc);
+            else if(choice ==4) markGoalAsDone(sc);
+            else if(choice ==5) {
+                saveGoals();
+                return;
             }
+
         }
     }
 

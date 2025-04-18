@@ -8,22 +8,42 @@ public class CalorieModule implements HealthModule {
 
     @Override
     public void execute(Scanner sc) {
+        int age = promptAge(sc);
+        String gender = promptGender(sc);
+        double weight = promptWeight(sc);
+        double heightCm = promptHeightInCm(sc);
+        double activityFactor = promptActivityLevel(sc);
+
+        double bmr = calculateBMR(gender, weight, heightCm, age);
+        double tdee = bmr * activityFactor;
+
+        displayCalorieStats(bmr, tdee);
+    }
+
+    private int promptAge(Scanner sc) {
         System.out.print("Enter your age: ");
-        int age = sc.nextInt();
+        return sc.nextInt();
+    }
 
+    private String promptGender(Scanner sc) {
         System.out.print("Enter your gender (M/F): ");
-        String gender = sc.next().toLowerCase();
+        return sc.next().toLowerCase();
+    }
 
+    private double promptWeight(Scanner sc) {
         System.out.print("Enter your weight (in kg): ");
-        double weight = sc.nextDouble();
+        return sc.nextDouble();
+    }
 
+    private double promptHeightInCm(Scanner sc) {
         System.out.print("Enter your height\n   Feet: ");
         int feet = sc.nextInt();
         System.out.print("   Inches: ");
         int inches = sc.nextInt();
+        return ((feet * 12) + inches) * 2.54;
+    }
 
-        double heightCm = ((feet * 12) + inches) * 2.54;
-
+    private double promptActivityLevel(Scanner sc) {
         System.out.println("Select exercise level:");
         System.out.println("     1. Sedentary (little or no exercise)");
         System.out.println("     2. Lightly active (light exercise/sports 1–3 days/week)");
@@ -31,53 +51,48 @@ public class CalorieModule implements HealthModule {
         System.out.println("     4. Very active (hard exercise/sports 6–7 days/week)");
         System.out.println("     5. Extra active (very hard exercise & physical job or 2x training)");
         System.out.print("Enter choice (1-5): ");
-        int activityChoice = sc.nextInt();
+        int choice = sc.nextInt();
 
-        double activityFactor;
-        switch (activityChoice) {
-            case 1: activityFactor = 1.2; break;
-            case 2: activityFactor = 1.375; break;
-            case 3: activityFactor = 1.55; break;
-            case 4: activityFactor = 1.725; break;
-            case 5: activityFactor = 1.9; break;
+        switch (choice) {
+            case 1: return 1.2;
+            case 2: return 1.375;
+            case 3: return 1.55;
+            case 4: return 1.725;
+            case 5: return 1.9;
             default:
                 System.out.println("Invalid input. Using sedentary by default.");
-                activityFactor = 1.2;
+                return 1.2;
         }
+    }
 
-
-        double bmr;
-        if (gender.equalsIgnoreCase("m")) {
-            bmr = 10 * weight + 6.25 * heightCm - 5 * age + 5;
-        } else if (gender.equalsIgnoreCase("f")) {
-            bmr = 10 * weight + 6.25 * heightCm - 5 * age - 161;
+    private double calculateBMR(String gender, double weight, double heightCm, int age) {
+        if (gender.equals("m")) {
+            return 10 * weight + 6.25 * heightCm - 5 * age + 5;
+        } else if (gender.equals("f")) {
+            return 10 * weight + 6.25 * heightCm - 5 * age - 161;
         } else {
-            System.out.println("Invalid gender.");
-            return;
+            System.out.println("Invalid gender. Calculation aborted.");
+            return 0;
         }
+    }
 
-        double tdee = bmr * activityFactor;
-
+    private void displayCalorieStats(double bmr, double tdee) {
         System.out.println("\n                    Your Calorie Stats");
         System.out.println("                   ════════════════════");
         System.out.printf("BMR (Basal Metabolic Rate)           : %.2f calories/day\n", bmr);
         System.out.printf("TDEE (Total Daily Energy Expenditure): %.2f calories/day\n\n", tdee);
 
-        StringBuilder chart = new StringBuilder();
-        chart.append("╔═════════════════════════════════╦══════════════════╦═══════════════╗\n");
-        chart.append("║           Weight Goal           ║   Calories/day   ║   % of TDEE   ║\n");
-        chart.append("╠═════════════════════════════════╬══════════════════╬═══════════════╣\n");
-        chart.append(String.format("║ Maintain weight                 ║ %.0f             ║ 100%%          ║\n", tdee));
-        chart.append(String.format("║ Mild weight loss (0.5lb/week)   ║ %.0f             ║ 90%%           ║\n", tdee * 0.9));
-        chart.append(String.format("║ Weight loss (1lb/week)          ║ %.0f             ║ 80%%           ║\n", tdee * 0.8));
-        chart.append(String.format("║ Extreme loss (2lb/week)         ║ %.0f             ║ 61%%           ║\n", tdee * 0.61));
-        chart.append(String.format("║ Mild gain (0.5lb/week)          ║ %.0f             ║ 110%%          ║\n", tdee * 1.1));
-        chart.append(String.format("║ Weight gain (1lb/week)          ║ %.0f             ║ 120%%          ║\n", tdee * 1.2));
-        chart.append(String.format("║ Fast gain (2lb/week)            ║ %.0f             ║ 139%%          ║\n", tdee * 1.39));
-        chart.append("╚═════════════════════════════════╩══════════════════╩═══════════════╝");
-
-        System.out.println(chart);
-        System.out.println("\n");
-
+        System.out.println("╔═════════════════════════════════╦══════════════════╦═══════════════╗");
+        System.out.println("║           Weight Goal           ║   Calories/day   ║   % of TDEE   ║");
+        System.out.println("╠═════════════════════════════════╬══════════════════╬═══════════════╣");
+        System.out.printf("║ Maintain weight                 ║ %.0f             ║ 100%%          ║\n", tdee);
+        System.out.printf("║ Mild weight loss (0.5lb/week)   ║ %.0f             ║ 90%%           ║\n", tdee * 0.9);
+        System.out.printf("║ Weight loss (1lb/week)          ║ %.0f             ║ 80%%           ║\n", tdee * 0.8);
+        System.out.printf("║ Extreme loss (2lb/week)         ║ %.0f             ║ 61%%           ║\n", tdee * 0.61);
+        System.out.printf("║ Mild gain (0.5lb/week)          ║ %.0f             ║ 110%%          ║\n", tdee * 1.1);
+        System.out.printf("║ Weight gain (1lb/week)          ║ %.0f             ║ 120%%          ║\n", tdee * 1.2);
+        System.out.printf("║ Fast gain (2lb/week)            ║ %.0f             ║ 139%%          ║\n", tdee * 1.39);
+        System.out.println("╚═════════════════════════════════╩══════════════════╩═══════════════╝");
+        System.out.println();
     }
 }

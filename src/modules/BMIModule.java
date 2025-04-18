@@ -35,7 +35,7 @@ public class BMIModule implements HealthModule {
         System.out.println("\n");
         String result = String.format("BMI: %.2f - %s", bmi, coloredCategory);
         System.out.println(result);
-        displayBMIChart(bmi, categoryIndex);
+        displayBMIBar(bmi, categoryIndex);
     }
 
     private double convertFeetInchesToMeters(int feet, int inches) {
@@ -50,7 +50,7 @@ public class BMIModule implements HealthModule {
         else return 3;
     }
 
-    private void displayBMIChart(double bmi, int categoryIndex) {
+    private void displayBMIBar(double bmi, int categoryIndex) {
         String[] categories = {"Underweight", "Normal", "Overweight", "Obese"};
         double[] bounds = {0, 18.5, 25, 30, 50};
 
@@ -79,8 +79,6 @@ public class BMIModule implements HealthModule {
             System.out.print(bar);
         }
         System.out.println("|");
-
-
 
         System.out.print(" ");
         for (int i = 0; i < pointerPosition; i++) System.out.print(" ");
